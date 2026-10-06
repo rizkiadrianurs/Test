@@ -1,4 +1,4 @@
-# Minpro 2 PBO — Sistem Pemesanan Tiket Kapal
+# Minpro 3 PBO — Sistem Pemesanan Tiket Kapal
 
 **Nama**  : Rizki Adrianur Saputra
 
@@ -30,35 +30,40 @@ Struktur package pada project (mengikuti struktur MVC) adalah sebagai berikut:
 
 ```
 Sistem_pemesanan_tiket_Kapal
-└── Source Packages
-    ├── controller
-    │   └── PemesananController.java
-    ├── main
-    │   └── Sistem_pemesanan_tiket_Kapal.java
-    ├── model
-    │   ├── Kapal.java
-    │   ├── KapalEkonomi.java
-    │   ├── KapalVIP.java
-    │   ├── Pemesanan.java
-    │   └── Penumpang.java
-    └── view
-        └── PemesananView.java
+├── pom.xml
+└── src
+    └── main
+        └── java
+            ├── controller
+            │   └── PemesananController.java
+            ├── main
+            │   └── Sistem_pemesanan_tiket_Kapal.java
+            ├── model
+            │   ├── InformasiKapal.java      
+            │   ├── Kapal.java               
+            │   ├── KapalEkonomi.java
+            │   ├── KapalVIP.java
+            │   ├── Pemesanan.java
+            │   └── Penumpang.java
+            └── view
+                └── PemesananView.java
 ```
 
 ---
 
 ## Struktur Kelas
 
-| Kelas | Tanggung Jawab |
-|---|---|
-| `Kapal` | **Superclass.** Menyimpan data umum kapal berupa nama kapal, tujuan, dan harga tiket. |
-| `KapalEkonomi` | **Subclass** dari `Kapal`. Menambahkan atribut `fasilitasEkonomi`. |
-| `KapalVIP` | **Subclass** dari `Kapal`. Menambahkan atribut `fasilitasVIP`. |
-| `Penumpang` | Menyimpan data penumpang berupa nama, NIK, dan umur. |
-| `Pemesanan` | Menggabungkan data `Penumpang` dan `Kapal`, jumlah tiket, serta menghitung total harga. |
-| `PemesananView` | Menampilkan menu, menerima input, dan memvalidasi input pengguna. |
-| `PemesananController` | Menjalankan alur program dan mengelola proses CRUD data pemesanan. |
-| `Sistem_pemesanan_tiket_Kapal` | Class utama yang berisi method `main`. |
+| Kelas | Jenis | Tanggung Jawab |
+|---|---|---|
+| `InformasiKapal` | **Interface** | Kontrak untuk kapal yang dapat menampilkan informasi: `tampilkanInformasiDasar()` dan `tampilkanFasilitas()`. |
+| `Kapal` | **Abstract class (superclass)** | Menyimpan data umum kapal (nama kapal, tujuan, harga tiket) dan mendeklarasikan abstract method `getJenisKapal()`. |
+| `KapalEkonomi` | **Subclass** dari `Kapal`, implementasi `InformasiKapal` | Menambahkan atribut `fasilitasEkonomi` dan mengisi semua method abstrak/interface. |
+| `KapalVIP` | **Subclass** dari `Kapal`, implementasi `InformasiKapal` | Menambahkan atribut `fasilitasVIP` dan mengisi semua method abstrak/interface. |
+| `Penumpang` | Class biasa | Menyimpan data penumpang berupa nama, NIK, dan umur. |
+| `Pemesanan` | Class biasa | Menggabungkan data `Penumpang` dan `Kapal`, jumlah tiket, membuat ID otomatis, serta menghitung total harga. |
+| `PemesananView` | View | Menampilkan menu, menerima input, dan memvalidasi input pengguna. |
+| `PemesananController` | Controller | Menjalankan alur program dan mengelola proses CRUD data pemesanan. |
+| `Sistem_pemesanan_tiket_Kapal` | Main | Class utama yang berisi method `main`. |
 
 ---
 
@@ -115,7 +120,7 @@ Pada bagian ini, sistem menampilkan 5 menu utama, yaitu Tambah Pemesanan, Tampil
 
 **Output Program:**
 
-<img width="495" height="571" alt="image" src="https://github.com/user-attachments/assets/c3aec39e-03c5-44d4-bd4f-3f72a6fda8f7" />
+<img width="487" height="572" alt="Screenshot 2026-10-06 221443" src="https://github.com/user-attachments/assets/3fbe1c52-3c60-42ad-816b-ae162954af19" />
 
 Pada bagian ini, pengguna memasukkan data penumpang, memilih kapal, dan menentukan jumlah tiket. Sistem menyimpan data serta menghitung total harga secara otomatis.
 
@@ -149,13 +154,13 @@ Pada bagian ini, data dummy langsung tampil tanpa perlu menambah data terlebih d
 
 **Output Program:**
 
-<img width="512" height="545" alt="image" src="https://github.com/user-attachments/assets/f470d58c-5cde-4c0e-8a46-ce6e891a78db" />
+<img width="495" height="542" alt="image" src="https://github.com/user-attachments/assets/a12e9832-9a57-4915-909e-8a405a476e39" />
 
 Pada bagian ini, pengguna memasukkan ID pemesanan yang ingin diperbarui. Setelah data baru dimasukkan, sistem memperbarui informasi pemesanan dan menampilkan pesan "Data berhasil diubah."
 
 **Output setelah perubahan:**
 
-<img width="412" height="258" alt="image" src="https://github.com/user-attachments/assets/c9ec51dc-a76f-490b-b3fc-0278f00f0a6d" />
+<img width="346" height="362" alt="image" src="https://github.com/user-attachments/assets/8ebc87d8-bea5-4149-98e5-507f27698ce1" />
 
 ### 4. Hapus Pemesanan (Menu 4)
 
@@ -170,13 +175,15 @@ Pada bagian ini, pengguna memasukkan ID pemesanan yang ingin diperbarui. Setelah
 
 **Output Program:**
 
-<img width="358" height="257" alt="image" src="https://github.com/user-attachments/assets/69bed670-a2fd-4bde-a9ac-f15ce10b6b83" />
+<img width="387" height="481" alt="image" src="https://github.com/user-attachments/assets/5350824a-36a8-40c8-9dbc-a1d1e79619fd" />
+
 
 Pada bagian ini, pengguna memasukkan ID pemesanan dan mengonfirmasi penghapusan. Jika pengguna memilih "Ya", sistem menghapus data dari `ArrayList` dan menampilkan pesan "Data berhasil dihapus."
 
 **Output setelah perubahan:**
 
-<img width="436" height="782" alt="image" src="https://github.com/user-attachments/assets/d567e4d3-e13f-4afb-a167-e62530fe79ae" />
+<img width="376" height="802" alt="image" src="https://github.com/user-attachments/assets/fa5e6ba8-489f-4a0e-a0f8-8cf231c0d527" />
+
 
 ### 5. Keluar (Menu 5)
 
@@ -281,9 +288,7 @@ Contoh gambar:
 
 ---
 
-## Penerapan Nilai Tambah
-
-### 1. Struktur MVC
+### 5. Struktur MVC
 
 Nilai tambah MVC diterapkan dengan memisahkan program ke dalam package `model`, `main`, `view`, dan `controller` (lihat bagian **Struktur Folder** di atas untuk susunan lengkapnya).
 
@@ -296,9 +301,12 @@ Nilai tambah MVC diterapkan dengan memisahkan program ke dalam package `model`, 
 
 Gambar MVC:
 
-<img width="417" height="317" alt="image" src="https://github.com/user-attachments/assets/66d8f145-e3d9-4a9a-a63e-57558b6c1764" />
+<img width="385" height="347" alt="image" src="https://github.com/user-attachments/assets/dbcc460e-be95-47ea-9ac6-e384873af870" />
 
-### 2. Polymorphism (Method Override)
+
+### 6. Polymorphism 
+
+**6.1 Overriding**
 
 Method `tampilkanInfo()` didefinisikan pada superclass `Kapal`, lalu **di-override** pada masing-masing subclass agar menampilkan fasilitas yang sesuai.
 
@@ -319,3 +327,99 @@ Contoh gambar pada `Fasilitas Ekonomi`:
 **Letak pemanggilan polymorphism:** pada `PemesananView.tampilkanDaftarPemesanan()` terdapat pemanggilan `p.getKapal().tampilkanInfo()`. Tipe variabelnya adalah `Kapal`, tetapi objek yang sebenarnya bisa berupa `KapalVIP` atau `KapalEkonomi`. Java secara otomatis memilih versi `tampilkanInfo()` yang sesuai dengan jenis objek pada saat program berjalan.
 
 Selain itu, method `buatKapal()` pada controller mengembalikan tipe `Kapal` tetapi membuat objek `KapalVIP` atau `KapalEkonomi` (upcasting), sehingga satu `ArrayList<Pemesanan>` dapat menampung berbagai jenis kapal.
+
+---
+
+**6.2 Overloading**
+
+### Polymorphism - Overloading
+
+Overloading diterapkan pada **constructor class `Pemesanan`** yang terdapat pada `model/Pemesanan.java`. Overloading terjadi ketika dalam satu class terdapat beberapa method atau constructor dengan **nama yang sama tetapi memiliki daftar parameter yang berbeda**.
+
+Pada class `Pemesanan`, terdapat dua constructor dengan nama yang sama, yaitu `Pemesanan`, tetapi jumlah parameternya berbeda.
+
+<img width="735" height="257" alt="Constructor Overloading pada class Pemesanan" src="https://github.com/user-attachments/assets/c3a15bab-e738-4530-9d8b-c2022a2830a3" />
+
+| Constructor | Parameter | Keterangan |
+|---|---|---|
+| `Pemesanan(Penumpang, Kapal, int)` | 3 parameter | Digunakan ketika jumlah tiket ingin ditentukan secara langsung. |
+| `Pemesanan(Penumpang, Kapal)` | 2 parameter | Digunakan ketika jumlah tiket tidak ditentukan, sehingga otomatis menggunakan jumlah tiket sebanyak 1. |
+
+Constructor pertama menerima tiga parameter, yaitu objek `Penumpang`, objek `Kapal`, dan jumlah tiket. Constructor ini digunakan ketika pemesanan membutuhkan jumlah tiket tertentu.
+
+
+### 7. Abstraction
+ 
+Abstraction diterapkan melalui **abstract class** `Kapal` dan **abstract method** `getJenisKapal()` yang terdapat pada `model/Kapal.java`. Abstraction digunakan untuk menentukan struktur umum yang dimiliki oleh setiap kapal tanpa menentukan secara langsung jenis kapal yang digunakan.
+
+<img width="500" height="122" alt="Abstract class Kapal" src="https://github.com/user-attachments/assets/83eea5b1-1293-4652-9c16-c182d34d9ad4" />
+
+<img width="508" height="58" alt="Abstract method getJenisKapal" src="https://github.com/user-attachments/assets/7d193040-76fb-4748-bff1-9c71cdfc7550" />
+
+Penerapan abstraction pada class `Kapal` dapat dijelaskan sebagai berikut:
+
+- `Kapal` dideklarasikan sebagai **abstract class**, sehingga class tersebut tidak dapat dibuat menjadi objek secara langsung menggunakan `new Kapal(...)`.
+- `Kapal` digunakan sebagai **class dasar** yang menyimpan data umum kapal, yaitu `namaKapal`, `tujuan`, dan `hargaTiket`.
+- `getJenisKapal()` dideklarasikan sebagai **abstract method**, sehingga method tersebut tidak memiliki isi pada class `Kapal`.
+- Setiap subclass yang mewarisi `Kapal` wajib memberikan implementasi `getJenisKapal()` sesuai dengan jenis kapalnya.
+- Dengan demikian, class `Kapal` hanya menentukan bahwa setiap kapal harus memiliki informasi mengenai jenis kapal, sedangkan detail jenisnya ditentukan oleh subclass.
+
+Implementasi `getJenisKapal()` pada `KapalVIP`:
+
+<img width="363" height="92" alt="image" src="https://github.com/user-attachments/assets/9df2934a-773c-4550-bf21-45ef517e8e3d" />
+
+Implementasi `getJenisKapal()` pada `KapalEkonomi`:
+
+<img width="385" height="100" alt="image" src="https://github.com/user-attachments/assets/a012f8ab-ea07-465d-9485-7deacc18407a" />
+
+| Kelas | Implementasi `getJenisKapal()` | Keterangan |
+|---|---|---|
+| `KapalVIP` | `return "Kapal VIP";` | Menentukan jenis objek sebagai kapal VIP. |
+| `KapalEkonomi` | `return "Kapal Ekonomi";` | Menentukan jenis objek sebagai kapal ekonomi. |
+ 
+---
+
+## Penerapan Nilai Tambah
+
+### Interface
+
+Nilai tambah yang diterapkan pada proyek ini adalah **Interface** melalui `InformasiKapal` yang terdapat pada `model/InformasiKapal.java`. Interface digunakan sebagai **kontrak** yang menentukan method yang harus dimiliki oleh class yang mengimplementasikannya.
+
+<img width="392" height="147" alt="Interface InformasiKapal" src="https://github.com/user-attachments/assets/caab9163-db51-4863-a850-cb9e0019e80d" />
+
+Interface `InformasiKapal` memiliki dua method, yaitu:
+
+- `tampilkanInformasiDasar()` untuk menampilkan informasi dasar kapal seperti nama kapal, tujuan, harga tiket, dan jenis kapal.
+- `tampilkanFasilitas()` untuk menampilkan fasilitas yang tersedia pada masing-masing jenis kapal.
+
+Penerapan interface pada proyek ini dapat dilihat pada tabel berikut:
+
+| Aspek | Penjelasan |
+|---|---|
+| **Nama Interface** | `InformasiKapal` |
+| **Letak deklarasi** | `model/InformasiKapal.java` |
+| **Class yang mengimplementasikan** | `KapalVIP` dan `KapalEkonomi` |
+| **Bentuk implementasi** | `implements InformasiKapal` |
+| **Method yang wajib diimplementasikan** | `tampilkanInformasiDasar()` dan `tampilkanFasilitas()` |
+| **Letak pemakaian** | `PemesananView.tampilkanDaftarPemesanan()` |
+| **Fungsi** | Menjadi kontrak untuk menyediakan method yang digunakan dalam menampilkan informasi kapal. |
+
+Class `KapalVIP` dan `KapalEkonomi` sama-sama mengimplementasikan `InformasiKapal`, tetapi masing-masing memberikan implementasi method sesuai dengan jenis kapalnya. Dengan demikian, interface menyediakan struktur method yang sama, sedangkan isi dari method dapat berbeda pada setiap class.
+
+Penerapan pada `KapalVIP`:
+
+<img width="665" height="48" alt="Implementasi InformasiKapal pada KapalVIP" src="https://github.com/user-attachments/assets/4c4341e0-f946-47eb-a233-92251a6454de" />
+
+<img width="680" height="261" alt="image" src="https://github.com/user-attachments/assets/a78b8e09-3cd1-4468-aab5-647983dcd47b" />
+
+Pada `KapalVIP`, class menggunakan `implements InformasiKapal` dan mengimplementasikan method `tampilkanInformasiDasar()` serta `tampilkanFasilitas()`. Method tersebut digunakan untuk menampilkan informasi kapal VIP dan fasilitas seperti kabin pribadi.
+
+Penerapan pada `KapalEkonomi`:
+
+<img width="702" height="37" alt="Implementasi InformasiKapal pada KapalEkonomi" src="https://github.com/user-attachments/assets/cc7ab074-d1e1-410d-a69a-11eebe35d69b" />
+
+<img width="702" height="265" alt="image" src="https://github.com/user-attachments/assets/87bf2ec4-8e15-45f7-8162-0fa9a7010645" />
+
+Pada `KapalEkonomi`, class juga menggunakan `implements InformasiKapal` dan mengimplementasikan kedua method yang ditentukan oleh interface. Informasi yang ditampilkan disesuaikan dengan kapal ekonomi, termasuk fasilitas yang tersedia.
+
+Interface tersebut kemudian digunakan pada `PemesananView` untuk menampilkan informasi kapal. Program mengecek apakah objek kapal mengimplementasikan `InformasiKapal`, kemudian menggunakan interface tersebut untuk memanggil method informasi kapal. Dengan penerapan ini, proses penampilan informasi kapal menjadi lebih terstruktur karena class yang ingin menyediakan informasi dasar dan fasilitas harus mengikuti kontrak yang telah ditentukan oleh `InformasiKapal`.
